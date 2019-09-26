@@ -45,7 +45,7 @@ char* encrypt(void* key, int keyLength, void* iv, int ivLength, char* data, int*
 	int requiredKeySize = mcrypt_enc_get_key_size(td);
 	int requiredIvSize = mcrypt_enc_get_iv_size(td);
 	// make sure the key and iv are the correct sizes
-	if (keyLength != requiredKeySize) {
+	if (keyLength > requiredKeySize) {
 		*err = INVALID_KEY_LENGTH;
 		mcrypt_module_close(td);
 		return NULL;
@@ -116,7 +116,7 @@ char* decrypt(void* key, int keyLength, void* iv, int ivLength, char* data, int*
 	int requiredKeySize = mcrypt_enc_get_key_size(td);
 	int requiredIvSize = mcrypt_enc_get_iv_size(td);
 	// make sure the key and iv are the correct sizes
-	if (keyLength != requiredKeySize) {
+	if (keyLength > requiredKeySize) {
 		*err = INVALID_KEY_LENGTH;
 		mcrypt_module_close(td);
 		return NULL;
